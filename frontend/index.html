@@ -96,6 +96,7 @@
   </form>
 
   <script>
+    const BACKEND_URL = 'https://rag-chatbot-1-dou1.onrender.com';
     const chatContainer = document.getElementById('chat-container');
     const inputForm = document.getElementById('inputForm');
     const queryInput = document.getElementById('query');
@@ -117,7 +118,7 @@
       queryInput.value = '';
 
       try {
-        const res = await fetch('http://localhost:5000/api/chat', {
+        const res = await fetch(`${BACKEND_URL}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sessionId, query })
@@ -131,7 +132,7 @@
 
     async function loadHistory() {
       try {
-        const res = await fetch(`http://localhost:5000/api/history/${sessionId}`);
+        const res = await fetch(`${BACKEND_URL}/api/history/${sessionId}`);
         const history = await res.json();
         history.forEach(msg => appendMessage(msg.role, msg.content));
       } catch (err) {
